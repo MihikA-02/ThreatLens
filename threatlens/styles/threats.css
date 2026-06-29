@@ -1,0 +1,26 @@
+/* ============================================================
+   threats.css
+   ============================================================ */
+
+/* (threat items are in dashboard.css) */
+.threat-detail-expanded {
+  padding: 10px 14px;
+  background: var(--color-bg-input);
+  border-radius: var(--radius-sm);
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  display: none;
+}
+.threat-item.open .threat-detail-expanded { display: block; }
+.threat-item.open { border-color: var(--color-accent); }
+
+/* Safe state */
+.no-results {
+  text-align: center;
+  padding: 32px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+.no-results-icon { font-size: 32px; margin-bottom: 8px; }

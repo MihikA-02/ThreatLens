@@ -1,0 +1,59 @@
+/* ============================================================
+   radar.css – Threat Overview Radar
+   ============================================================ */
+
+.radar-section { padding: 18px; }
+
+.radar-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+.radar-container svg {
+  width: 100%; height: 100%;
+  overflow: visible;
+}
+
+.radar-bg-polygon {
+  fill: none;
+  stroke: rgba(139,92,246,0.12);
+  stroke-width: 1;
+}
+
+.radar-axis {
+  stroke: rgba(139,92,246,0.15);
+  stroke-width: 1;
+}
+
+.radar-data-polygon {
+  fill: rgba(139,92,246,0.25);
+  stroke: #a78bfa;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 8px rgba(139,92,246,0.5));
+  transition: all var(--transition-slow);
+}
+
+.radar-data-point {
+  fill: #a78bfa;
+  filter: drop-shadow(0 0 4px rgba(139,92,246,0.8));
+  transition: all var(--transition-slow);
+}
+
+.radar-label-group { font-size: 10px; font-family: var(--font-sans); }
+.radar-label-name  { fill: var(--color-text-secondary); font-weight: 500; }
+.radar-label-value { font-size: 9px; font-weight: 700; }
+.radar-label-value.high     { fill: var(--color-high); }
+.radar-label-value.medium   { fill: var(--color-medium); }
+.radar-label-value.low      { fill: var(--color-safe); }
+.radar-label-value.critical { fill: var(--color-critical); }
+
+.radar-note {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-top: 10px;
+  font-style: italic;
+}

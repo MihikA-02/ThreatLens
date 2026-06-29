@@ -1,0 +1,53 @@
+/* ============================================================
+   animations.css
+   ============================================================ */
+
+/* Glow pulse on cards */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 12px rgba(139,92,246,0.2); }
+  50%       { box-shadow: 0 0 28px rgba(139,92,246,0.45); }
+}
+
+/* Fade + slide up */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Count up numbers */
+.count-up { display: inline-block; }
+
+/* Shimmer loading skeleton */
+.skeleton {
+  background: linear-gradient(90deg,
+    var(--color-bg-card) 25%,
+    var(--color-bg-card-hover) 50%,
+    var(--color-bg-card) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: var(--radius-sm);
+}
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+
+/* Analyze btn pulsing glow when active */
+.analyze-btn.loading {
+  animation: btnGlow 1.4s ease-in-out infinite;
+}
+@keyframes btnGlow {
+  0%, 100% { box-shadow: 0 4px 16px rgba(124,58,237,0.4); }
+  50%       { box-shadow: 0 4px 32px rgba(124,58,237,0.7); }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* Data-animations=false */
+[data-animations="false"] *, [data-animations="false"] *::before, [data-animations="false"] *::after {
+  animation-duration: 0.01ms !important;
+  transition-duration: 0.01ms !important;
+}

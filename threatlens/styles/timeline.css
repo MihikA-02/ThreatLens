@@ -1,0 +1,101 @@
+/* ============================================================
+   timeline.css – AI Explanation Timeline
+   ============================================================ */
+
+.timeline-section { padding: 0 18px 18px; }
+
+.timeline { display: flex; flex-direction: column; gap: 0; }
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  gap: 0 12px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.timeline-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.timeline-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timeline-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 8px rgba(139,92,246,0.6);
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.timeline-line {
+  width: 2px;
+  flex: 1;
+  background: linear-gradient(to bottom, var(--color-accent), transparent);
+  min-height: 20px;
+}
+
+.timeline-content {
+  padding-bottom: 16px;
+  cursor: pointer;
+}
+
+.timeline-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.timeline-time {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--color-accent-bright);
+  font-weight: 600;
+}
+
+.timeline-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.timeline-desc {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.timeline-expanded {
+  display: none;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin-top: 6px;
+  padding: 8px 12px;
+  background: var(--color-bg-input);
+  border-radius: var(--radius-sm);
+  border-left: 2px solid var(--color-accent);
+}
+.timeline-item.open .timeline-expanded { display: block; }
+
+/* Safeguard checklist (How to Stay Safe) */
+.safety-list { display: flex; flex-direction: column; gap: 8px; padding: 0 18px 18px; }
+.safety-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-fast);
+}
+.safety-item:hover { background: var(--color-accent-dim); }
+.safety-icon { color: var(--color-accent); flex-shrink: 0; margin-top: 1px; }

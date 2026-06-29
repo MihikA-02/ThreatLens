@@ -1,0 +1,56 @@
+/* ============================================================
+   responsive.css
+   ============================================================ */
+
+/* Tablet */
+@media (max-width: 1100px) {
+  .dashboard-page {
+    grid-template-columns: 1fr;
+  }
+  .dashboard-left { padding: 16px; }
+  .dashboard-right { padding: 0 16px 16px; }
+}
+
+@media (max-width: 900px) {
+  .threats-recs-row { grid-template-columns: 1fr; }
+}
+
+/* Mobile sidebar */
+@media (max-width: 768px) {
+  :root { --sidebar-width: 220px; }
+
+  .sidebar {
+    transform: translateX(-100%);
+    box-shadow: none;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+    box-shadow: 4px 0 30px rgba(0,0,0,0.5);
+  }
+
+  .main-content { margin-left: 0 !important; }
+
+  .sidebar-toggle { display: flex; }
+
+  .sidebar-overlay.visible { display: block; }
+
+  .top-bar { padding-left: 60px; }
+
+  .tab-btn span { display: none; }
+  .tab-selector { gap: 2px; }
+  .tab-btn { padding: 9px; flex: none; width: 44px; }
+
+  .analyze-btn span { display: none; }
+  .analyze-btn { padding: 14px 16px; min-width: unset; }
+
+  .helpline-inner { flex-direction: column; gap: 14px; }
+  .helpline-btns { margin-left: 0; }
+
+  .howto-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .risk-score-inner { flex-direction: column; align-items: flex-start; }
+  .hacker-figure { display: none; }
+  .history-grid { grid-template-columns: 1fr; }
+}
