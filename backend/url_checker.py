@@ -38,7 +38,35 @@ SHORTENERS = {
     "rebrand.ly",
     "shorturl.at"
 }
+# -------------------------------
+# Phishing URL Keywords
+# -------------------------------
 
+URL_PHISHING_WORDS = {
+
+    "verify",
+    "verification",
+    "secure",
+    "security",
+    "confirm",
+    "identity",
+
+    "account",
+    "login",
+    "signin",
+    "authenticate",
+
+    "password",
+    "otp",
+
+    "update",
+
+    "suspended",
+    "locked",
+
+    "urgent"
+
+}
 
 # -------------------------------
 # Brands commonly impersonated
@@ -227,7 +255,22 @@ def subdomain_count(host):
 
     return max(0, len(parts) - 2)
 
+# -------------------------------
+# Detect Phishing Language in URL
+# -------------------------------
 
+def phishing_keywords(url):
+
+    url = url.lower()
+
+    found = []
+
+    for word in URL_PHISHING_WORDS:
+
+        if word in url:
+            found.append(word)
+
+    return found
 # ============================================================
 # URL Length
 # ============================================================
@@ -485,6 +528,8 @@ def inspect_url(url):
 
             "brand_impersonation": detect_brand_impersonation(host),
 
+            "phishing_keywords": phishing_keywords(url),
+
             "typosquatting": detect_typosquatting(host),
 
             "credentials": has_credentials(parsed),
@@ -607,7 +652,16 @@ def score_url(report):
                     flags.append(f"Suspicious Query Parameter ({item})")
 
             continue
+        if check == "phishing_keywords":
 
+            if len(value) >= 3:
+
+                score += 25
+
+                flags.append("Phishing Language in URL")
+
+            continue
+        
         if value:
 
             score += WEIGHTS.get(check, 0)

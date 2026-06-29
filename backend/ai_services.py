@@ -25,7 +25,7 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 PRIMARY_PROVIDER = os.getenv("PRIMARY_PROVIDER", "groq").lower()
-IMAGE_PROVIDER = os.getenv("IMAGE_PROVIDER", "gemini").lower()
+IMAGE_PROVIDER = os.getenv("IMAGE_PROVIDER", "groq").lower()
 
 
 # ==========================================

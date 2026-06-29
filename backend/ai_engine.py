@@ -2017,12 +2017,16 @@ Return JSON only using this schema:
 
         )
 
-        return json.loads(
-            response.choices[0].message.content
-        )
+        data = json.loads(response.choices[0].message.content)
+
+        data.setdefault("summary", "")
+        data.setdefault("simple_explanation", "")
+        data.setdefault("extra_flags", [])
+        data.setdefault("recommendations", [])
+
+        return data
 
     except Exception as e:
 
         print("AI Error:", e)
-
         return None

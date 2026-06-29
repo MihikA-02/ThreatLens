@@ -68,7 +68,9 @@ PLATFORMS = {
 
 BANKS = [
 
+    # India
     "sbi",
+    "state bank",
     "hdfc",
     "icici",
     "axis",
@@ -76,7 +78,21 @@ BANKS = [
     "rbi",
     "pnb",
     "union bank",
-    "canara"
+    "canara",
+    "indusind",
+    "yes bank",
+    "idfc",
+    "bank of baroda",
+
+    # International
+    "citizen",
+    "citizen bank",
+    "bank of america",
+    "chase",
+    "wells fargo",
+    "capital one",
+    "paypal",
+    "hsbc"
 
 ]
 
@@ -117,16 +133,71 @@ PAYMENT_APPS = [
 LOGIN_WORDS = [
 
     "login",
+    "log in",
     "sign in",
+
     "username",
     "password",
-    "email",
-    "continue",
+
     "verify",
-    "otp"
+    "verification",
+
+    "identity",
+    "confirm",
+
+    "continue",
+
+    "otp",
+
+    "security",
+
+    "account",
+
+    "authenticate",
+
+    "unusual activity",
+
+    "suspended",
+
+    "locked",
+
+    "secure account",
+
+    "confirm identity",
+
+    "verify account"
 
 ]
 
+PHISHING_WORDS = [
+
+    "identity verification",
+
+    "verify your account",
+
+    "verify account",
+
+    "confirm your identity",
+
+    "unusual activity",
+
+    "security alert",
+
+    "account suspended",
+
+    "account locked",
+
+    "your account",
+
+    "click below",
+
+    "urgent",
+
+    "immediately",
+
+    "limited account"
+
+]
 
 # ==========================================================
 # Load Image
@@ -268,7 +339,21 @@ def detect_login_page(text):
         if word in text:
             count += 1
 
-    return count >= 2
+    return count >= 1
+
+
+def detect_phishing_language(text):
+
+    text = text.lower()
+
+    found = []
+
+    for phrase in PHISHING_WORDS:
+
+        if phrase in text:
+            found.append(phrase)
+
+    return found
 
 
 # ==========================================================
@@ -388,6 +473,9 @@ def generate_flags(info):
     if len(info["payment_apps"]) > 0:
         flags.append("Payment App")
 
+    if len(info["phishing"]) > 0:
+        flags.append("Identity Verification Scam")
+
     return flags
 
 # ==========================================================
@@ -405,6 +493,8 @@ def analyze_screenshot(image_path):
     screen_type = detect_screen_type(extracted_text)
 
     login = detect_login_page(extracted_text)
+
+    phishing = detect_phishing_language(extracted_text)
 
     banks = detect_bank(extracted_text)
 
@@ -432,7 +522,11 @@ def analyze_screenshot(image_path):
 
         "payment_apps": payment_apps,
 
-        "has_qr": qr
+        "has_qr": qr,
+
+        "phishing": phishing
+
+        
 
     })
 
@@ -463,6 +557,8 @@ def analyze_screenshot(image_path):
             "brightness": round(bright,2)
 
         },
+
+        "phishing": phishing,
 
         "ocr_text": extracted_text,
 

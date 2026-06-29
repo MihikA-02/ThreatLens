@@ -60,7 +60,7 @@ FLAG_WEIGHTS = {
     "Payment App": 15,
     "Hidden Text": 15,
     "Blurred Text": 10,
-
+    "Identity Verification Scam": 25,
     # AI
     "LLM Suspicion": 20
 }
@@ -444,17 +444,34 @@ def recommendation(score):
 
     if score <= 24:
 
-        return "Content appears safe, but remain cautious."
+        return [
+            "No significant security threats were detected.",
+            "You may continue, but always verify unfamiliar websites or senders.",
+        ]
 
     elif score <= 49:
 
-        return "Verify the sender and avoid sharing sensitive information."
-
+        return [
+            "Proceed with caution before interacting with this content.",
+            "Verify the sender or website through an official source.",
+        ]
     elif score <= 74:
 
-        return "Do not click links or download attachments until verified."
+       return [
+            "Do not interact with this content or click any embedded links.",
+            "Never enter passwords, OTPs, or payment details.",
+            "Block or report the sender immediately.",
+            "Delete the message if it is unsolicited or appears fraudulent.",
+            "If you already interacted with it, change your passwords and monitor your accounts."
+        ]
 
-    return "Do NOT interact with this message. Block, report, and delete it immediately."
+    return [
+    "Stop interacting with this content immediately.",
+    "Do not visit the website or open any attachments.",
+    "Change any exposed passwords immediately.",
+    "Contact your bank or service provider if sensitive information was shared.",
+    "Report the incident to the appropriate platform or cybersecurity authority."
+    ]
 
 # ==========================================================
 # Part 3 - Final Risk Report
@@ -507,7 +524,7 @@ def generate_risk_report(
 
         "summary": threat_summary(final_score),
 
-        "recommendation": recommendation(final_score),
+        "recommendations": recommendation(final_score),
 
         "flags": result["merged_flags"],
 

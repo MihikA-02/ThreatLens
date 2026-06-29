@@ -18,7 +18,7 @@ import { showToast } from '../js/utils/toast.js';
 const EXAMPLES = APP_CONFIG.exampleInputs;
 const ANALYSIS_STEPS = APP_CONFIG.analysisSteps || [];
 
-let currentImageBase64 = null;
+
 let currentImageFile = null;
 let analysisShown = false;
 
@@ -270,10 +270,20 @@ function initDashboard(container) {
     e.preventDefault();
     runAnalysis(container);
   });
-  container.querySelector('#analyze-btn-img')?.addEventListener('click', (e) => {
-    e.preventDefault();
-    runAnalysis(container);
-  });
+  container.querySelector("#analyze-btn-img")
+    ?.addEventListener("click", async (e) => {
+      console.log("CLICKED");
+
+      e.preventDefault();
+      e.stopPropagation();
+
+
+      await runAnalysis(container);
+
+      console.log("AFTER RUN");
+
+      console.log("FINISHED");
+    });
 
   // Enter key
   mainInput?.addEventListener('keydown', e => {
@@ -299,7 +309,6 @@ function initDashboard(container) {
   });
 
   container.querySelector('#remove-img')?.addEventListener('click', () => {
-    currentImageBase64 = null;
     currentImageFile = null;
     container.querySelector('#preview-wrap').style.display = 'none';
     container.querySelector('#upload-area').style.display = 'block';
@@ -373,32 +382,36 @@ function updateInputUI(container, tab) {
 }
 
 function handleFileSelect(container, file) {
+
   if (!file.type.match(/image\/(png|jpe?g)/)) {
-    showErrorCard(container, 'Unsupported file type. Please upload PNG, JPG, or JPEG images.');
+
+    showErrorCard(
+      container,
+      "Unsupported file type. Please upload PNG, JPG, or JPEG images."
+    );
+
     return;
   }
-  // Store the File object so runAnalysis can send it to the backend
+
   currentImageFile = file;
 
-  const reader = new FileReader();
-  reader.onload = e => {
-    const dataUrl = e.target.result;
-    currentImageBase64 = dataUrl.split(',')[1];
+  const preview = container.querySelector("#preview-img");
 
-    const preview = container.querySelector('#preview-img');
-    if (preview) preview.src = dataUrl;
-    container.querySelector('#preview-wrap').style.display = 'block';
-    container.querySelector('#upload-area').style.display = 'none';
-  };
-  reader.readAsDataURL(file);
+  if (preview) {
+    preview.src = URL.createObjectURL(file);
+  }
+
+  container.querySelector("#preview-wrap").style.display = "block";
+  container.querySelector("#upload-area").style.display = "none";
 }
 
 async function runAnalysis(container) {
+  console.log("RUN 1");
   const tab = State.get('currentTab') || 'url';
   let value = '';
 
   if (tab === 'screenshot') {
-    if (!currentImageBase64) {
+    if (!currentImageFile) {
       showErrorCard(container, 'Please upload a screenshot image first.');
       return;
     }
@@ -460,8 +473,9 @@ async function runAnalysis(container) {
       if (!currentImageFile) {
         throw new Error('No image selected. Please upload a screenshot first.');
       }
-
+      console.log("RUN BEFORE API");
       result = await analyzeScreenshot(currentImageFile);
+      console.log("RUN AFTER API");
 
     }
     ;
@@ -579,7 +593,7 @@ function transformBackendResponse(apiResponse) {
 
     aiExplanation:
       data.simple_explanation ||
-      "No AI explanation available.",
+      "AI explanation couldn't be generated at the moment.Your security analysis is still complete.",
 
     recommendations: (data.recommendations || []).map(text => ({
       action: text,

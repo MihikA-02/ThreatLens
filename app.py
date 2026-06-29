@@ -40,7 +40,12 @@ CORS(app)
 # Config
 # ==========================================
 
-UPLOAD_FOLDER = "uploads"
+import tempfile
+
+UPLOAD_FOLDER = os.path.join(
+    tempfile.gettempdir(),
+    "threatlens_uploads"
+)
 
 os.makedirs(
     UPLOAD_FOLDER,
@@ -100,6 +105,11 @@ def home():
 @app.route("/analyze/screenshot", methods=["POST"])
 def analyze_screenshot():
 
+    print("\n========== SCREENSHOT REQUEST ==========")
+    print("Files:", request.files)
+    print("Form :", request.form)
+    print("=======================================\n")
+
     try:
 
         if "image" not in request.files:
@@ -110,6 +120,8 @@ def analyze_screenshot():
             }), 400
 
         image = request.files["image"]
+        print("Filename:", image.filename)
+        print("Content-Type:", image.content_type)
 
         if image.filename == "":
 
@@ -350,6 +362,8 @@ if __name__ == "__main__":
 
         port=5000,
 
-        debug=True
+        debug=True,
+
+        use_reloader=False
 
     )

@@ -1,0 +1,11 @@
+Flask
+Flask-Cors
+groq
+opencv-python
+numpy
+easyocr
+pyzbar
+python-dotenv
+Werkzeug
+requests
+Pillow
