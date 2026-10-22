@@ -9,3 +9,4 @@ python-dotenv
 Werkzeug
 requests
 Pillow
+gunicorn

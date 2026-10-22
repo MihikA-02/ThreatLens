@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import easyocr
-from pyzbar.pyzbar import decode
+
 
 # ==========================================================
 # ThreatLens Screenshot Checker
@@ -237,13 +237,13 @@ def extract_text(image):
 
 def detect_qr(image):
 
-    qr_codes = decode(image)
+    detector = cv2.QRCodeDetector()
+    data, bbox, _ = detector.detectAndDecode(image)
 
-    if len(qr_codes) == 0:
+    if bbox is not None and data:
+        return True
 
-        return False
-
-    return True
+    return False
 
 
 # ==========================================================
