@@ -1,33 +1,30 @@
-import easyocr
 import cv2
+import easyocr
 
-# Create the OCR reader once
-reader = easyocr.Reader(['en'], gpu=False)
+# Load the OCR model only when first needed
+reader = None
+
+
+def get_reader():
+    global reader
+
+    if reader is None:
+        reader = easyocr.Reader(["en"], gpu=False)
+
+    return reader
 
 
 def extract_text(file_path):
-    """
-    Extract text from an image using EasyOCR.
-
-    Args:
-        file_path (str): Path to the image file.
-
-    Returns:
-        str: Extracted text.
-    """
-
-    # Read the image
     image = cv2.imread(file_path)
 
-    # Check if image was loaded
     if image is None:
-        raise FileNotFoundError(f"Could not open image: {file_path}")
+        raise FileNotFoundError(
+            f"Could not open image: {file_path}"
+        )
 
-    # Perform OCR
-    results = reader.readtext(image)
+    ocr_reader = get_reader()
+    results = ocr_reader.readtext(image)
 
-    # Combine all detected text
-    extracted_text = "\n".join([text for (_, text, _) in results])
-
-    return extracted_text
-
+    return "\n".join(
+        text for (_, text, _) in results
+    )
