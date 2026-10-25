@@ -1,11 +1,12 @@
 // js/modules/api.service.js
 // ThreatLens Frontend -> Flask Backend
 
-const API_BASE = "http://127.0.0.1:5000";
+const API_BASE = "https://threatlens-api-xxyy.onrender.com";
 
 /**
  * Analyze Message
  */
+
 export async function analyzeMessage(message) {
   const response = await fetch(`${API_BASE}/analyze/message`, {
     method: "POST",
