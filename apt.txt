@@ -1,0 +1,6 @@
+# apt.txt
+# Note: Render Native Python runtime does NOT automatically process apt.txt.
+# To install system-level packages on Render, deploy using Docker (Dockerfile provided)
+# where tesseract-ocr and tesseract-ocr-eng are installed via apt-get.
+tesseract-ocr
+tesseract-ocr-eng

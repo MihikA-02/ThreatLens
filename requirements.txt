@@ -1,12 +1,10 @@
 Flask
 Flask-Cors
-groq
-opencv-python
-numpy
-easyocr
-pyzbar
+gunicorn
 python-dotenv
-Werkzeug
+groq
 requests
 Pillow
-gunicorn
+pytesseract
+numpy
+opencv-python-headless

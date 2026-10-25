@@ -16,7 +16,7 @@ Analyze URLs, Emails, Messages, and Screenshots using a hybrid AI + Rule-Based d
 ![HTML5](https://img.shields.io/badge/HTML5-Frontend-orange?logo=html5)
 ![CSS3](https://img.shields.io/badge/CSS3-Styled-blue?logo=css3)
 ![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-red?logo=opencv)
-![EasyOCR](https://img.shields.io/badge/OCR-EasyOCR-success)
+![Tesseract OCR](https://img.shields.io/badge/OCR-Tesseract-success)
 ![Groq AI](https://img.shields.io/badge/AI-Groq-purple)
 
 </div>
@@ -189,9 +189,8 @@ Modern dashboard including:
 
 ## Computer Vision
 
-* OpenCV
-* EasyOCR
-* Pyzbar
+* OpenCV (Headless)
+* Tesseract OCR (via pytesseract)
 * NumPy
 ---
 

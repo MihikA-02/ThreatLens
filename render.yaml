@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: threatlens-backend
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: PRIMARY_PROVIDER
+        value: groq
+      - key: IMAGE_PROVIDER
+        value: groq

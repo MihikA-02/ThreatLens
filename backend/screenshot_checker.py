@@ -1,15 +1,12 @@
 import cv2
 import numpy as np
-import easyocr
+from backend.ocr import extract_text as ocr_extract_text, is_tesseract_available
 
 
 # ==========================================================
 # ThreatLens Screenshot Checker
 # Part 1 - Image Loading & Basic Vision
 # ==========================================================
-
-# OCR Reader
-reader = easyocr.Reader(['en'], gpu=False)
 
 # ----------------------------------------------------------
 # Platform Keywords
@@ -220,15 +217,7 @@ def load_image(image_path):
 
 def extract_text(image):
 
-    result = reader.readtext(image)
-
-    words = []
-
-    for item in result:
-
-        words.append(item[1])
-
-    return " ".join(words)
+    return ocr_extract_text(image)
 
 
 # ==========================================================
@@ -562,7 +551,9 @@ def analyze_screenshot(image_path):
 
         "ocr_text": extracted_text,
 
-        "flags": flags
+        "flags": flags,
+
+        "ocr_available": is_tesseract_available()
 
     }
 
